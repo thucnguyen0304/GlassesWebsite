@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>List Order Status - Leo Shop</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+<th:block th:include="/_header"></th:block>
+</head>
+<body>
+	<th:block th:include="/_header-top"></th:block>
+	<th:block th:include="/_header-bottom"></th:block>
+	<div class="login">
+		<div align="center">
+			<h1 class="text-center">
+				<th:block th:include="/_menu_admin"></th:block>
+				<a href="/" class="btn btn-danger text-right">Go Home</a> <a
+					href="/order_status" class="btn btn-primary text-right">New
+					Status</a>
+			</h1>
+			<br> <br>
+
+			<table id="example"
+				class="table table-striped table-bordered text-center">
+				<thead>
+					<tr>
+						<th>Status ID</th>
+						<th>Status Name</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody th:with="count=0">
+					<tr th:each="orderStatus : ${list_order_status}">
+						<td th:text="${orderStatus.id}">Status ID</td>
+						<td th:text="${orderStatus.nameStatus}">Status Name</td>
+						<td><a
+							th:href="@{/order_status_edit/{id}(id=${orderStatus.id})}"
+							class="btn btn-warning text-right">Edit</a> &nbsp;&nbsp;&nbsp; <a
+							th:href="@{/order_status_delete/{id}(id=${orderStatus.id})}"
+							class="btn btn-danger text-right" id="delete"
+							data-confirm="Are you sure to delete this item.">Delete</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<script
+				src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+			<script
+				src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+			<script
+				src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$('#example').DataTable();
+				});
+			</script>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<script type="text/javascript">
+		var deleteLinks = document.querySelectorAll('#delete');
+		for (var i = 0; i < deleteLinks.length; i++) {
+			deleteLinks[i].addEventListener('click', function(event) {
+				event.preventDefault();
+				var choice = confirm(this.getAttribute('data-confirm'));
+				if (choice) {
+					window.location.href = this.getAttribute('href');
+				}
+			});
+		}
+	</script>
+	<th:block th:include="/_footer"></th:block>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Order History - Leo Shop</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+
+<th:block th:include="/_header"></th:block>
+</head>
+<body>
+	<th:block th:include="/_header-top"></th:block>
+	<th:block th:include="/_header-bottom"></th:block>
+	<div class="register_account">
+		<div class="wrap">
+			<h4 class="title" th:if="${#lists.isEmpty(orders)}">Order
+				history is empty</h4>
+			<p class="cart" th:if="${#lists.isEmpty(orders)}">
+				You have no items in your order list.<br>Click<a th:href="@{/}">
+					here</a> to continue shopping
+			</p>
+		</div>
+	</div>
+	<table id="example"
+		class="table table-striped table-bordered text-center"
+		th:unless="${#lists.isEmpty(orders)}">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Image</th>
+				<th>Price</th>
+				<th>Quantity</th>
+				<th>Sub Total</th>
+				<th>Order Status</th>
+				<th>Order Date</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="order,status: ${orders}">
+				<th:block th:with="product=${order.product}">
+					<td th:text="${order.id}"></td>
+					<td th:text="${product.name}"></td>
+					<td><img th:src="@{${'/image/display/'+product.id}}"
+						class="card img-fluid" style="width: 100px" alt="" /></td>
+					<td><span>$</span><span th:text="${product.price}"></span></td>
+					<td><span th:text="${order.quantity}"></span></td>
+					<td><span>$</span><span
+						th:text="${order.quantity}*${product.price}"></span><span>.0</span></td>
+					<td><span th:text="${order.orderStatus}"></span></td>
+					<td th:text="${#dates.format({order.createDate}, 'dd-MM-yyyy')}" /></td>
+					<td><a th:href="@{/cancel/order/{id}(id=${order.id})}"
+						class="btn btn-danger text-right" id="delete"
+						data-confirm="Are you sure to cancel this order.">Cancel Order</a></td>
+				</th:block>
+			</tr>
+		</tbody>
+	</table>
+	<br>
+
+	<div>
+		<a id="modelTitle"></a> <a id="modelBody"></a>
+	</div>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#example').DataTable();
+		});
+	</script>
+	<script src="js/quantity_control.js"></script>
+	<script src="js/add_to_cart.js"></script>
+	<script src="js/shopping_cart.js"></script>
+	<script type="text/javascript">
+		var deleteLinks = document.querySelectorAll('#delete');
+		for (var i = 0; i < deleteLinks.length; i++) {
+			deleteLinks[i].addEventListener('click', function(event) {
+				event.preventDefault();
+				var choice = confirm(this.getAttribute('data-confirm'));
+				if (choice) {
+					window.location.href = this.getAttribute('href');
+				}
+			});
+		}
+	</script>
+	<th:block th:include="/_footer"></th:block>
+</body>
+</html>

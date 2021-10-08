@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<title>Edit Product</title>
+<th:block th:include="/_header"></th:block>
+</head>
+<body>
+	<th:block th:include="/_header-top"></th:block>
+	<th:block th:include="/_header-bottom"></th:block>
+	<div class="login">
+		<div class="wrap">
+			<div class="col_1_of_login span_1_of_login">
+				<div class="login-title">
+					<h4 class="title">Edit Product</h4>
+					<div id="loginbox" class="loginbox">
+						<form th:action="@{/add_role_process}" th:object="${userRole}"
+							method="post">
+							<fieldset class="input">
+								<p id="login-form-username">
+									<label for="modlgn_username">ID</label> <input th:field="*{id}"
+										type="text" class="inputbox" size="18" autocomplete="off"
+										readonly="readonly">
+								</p>
+								<p id="login-form-username">
+									<label for="modlgn_username">User Id</label> <input
+										th:field="*{appUser.userId}" type="text" class="inputbox"
+										size="18" autocomplete="off" required>
+								</p>
+								<p id="login-form-username">
+									<label for="modlgn_username">Role Id</label> <input
+										th:field="*{appRole.roleId}" type="text" class="inputbox"
+										size="18" autocomplete="off" required>
+								</p>
+
+								<div class="remember">
+									<input type="submit" name="Submit" class="button" value="Edit">
+									<div class="clear"></div>
+								</div>
+							</fieldset>
+						</form>
+
+					</div>
+				</div>
+				<br>
+				<div id="success" class="text-center" style="color: green;"></div>
+				<div id="error" class="text-center" style="color: red;"></div>
+			</div>
+
+			<div class="col_1_of_login span_1_of_login">
+				<h4 class="title">New Products</h4>
+				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
+					diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
+					erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
+					tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
+					consequat. Duis autem vel eum iriure dolor in hendrerit in
+					vulputate velit esse molestie consequat, vel illum dolore eu
+					feugiat nulla facilisis at vero eros et accumsan</p>
+				<div class="button1">
+					<a th:href="@{/admin}"><input type="submit" name="Submit"
+						value="Show All"></a>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="clear"></div>
+
+
+		</div>
+	</div>
+	<th:block th:include="/_footer"></th:block>
+	<script src="/js/product.js"></script>
+	<script src="/js/image.js"></script>
+</body>
+</html>

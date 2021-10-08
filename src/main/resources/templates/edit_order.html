@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Edit Order - Leo Shop</title>
+<th:block th:include="/_header"></th:block>
+</head>
+<body>
+	<th:block th:include="/_header-top"></th:block>
+	<th:block th:include="/_header-bottom"></th:block>
+	<div class="login">
+		<div class="wrap">
+			<div class="col_1_of_login span_1_of_login">
+
+				<div class="login-title">
+					<h4 class="title">Edit Order</h4>
+					<div id="loginbox" class="loginbox">
+						<form th:action="@{/edit/order}" method="post"
+							th:object="${orderModel}">
+							<fieldset class="input">
+								<p id="login-form-username" hidden="true">
+									<label for="modlgn_username">Order Id</label> <input
+										id="modlgn_username" type="text" th:field="*{id}"
+										class="inputbox" size="18" autocomplete="off" required>
+								</p>
+								<p id="login-form-username">
+									<label for="modlgn_username">Order Status</label>
+								<div class="inputbox">
+									<select th:field="*{orderStatus}">
+										<option th:each="ps : ${listOrderStatus}" th:value="${ps}"
+											th:text="${ps}"></option>
+									</select>
+								</div>
+								</p>
+								<p id="login-form-username">
+									<label for="modlgn_username">Address</label> <input
+										id="modlgn_username" type="text" th:field="*{address}"
+										class="inputbox" size="18" autocomplete="off" readonly="readonly">
+								</p>
+								<p id="login-form-username">
+									<label for="modlgn_username">Phone Number</label> <input
+										id="modlgn_username" type="text" th:field="*{phoneNumber}"
+										class="inputbox" size="18" autocomplete="off"
+										readonly="readonly">
+								</p>
+								<div class="remember">
+									<input type="submit" name="Submit" class="button"
+										value="Confirm">
+									<div class="clear"></div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col_1_of_login span_1_of_login">
+				<h4 class="title">New Customers</h4>
+				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
+					diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
+					erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
+					tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
+					consequat. Duis autem vel eum iriure dolor in hendrerit in
+					vulputate velit esse molestie consequat, vel illum dolore eu
+					feugiat nulla facilisis at vero eros et accumsan</p>
+				<div class="button1">
+					<a th:href="@{/login}"><input type="submit" name="Submit"
+						value="Login Now"></a>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<th:block th:include="/_footer"></th:block>
+</body>
+</html>

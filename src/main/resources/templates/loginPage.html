@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Login - Leo Shop</title>
+<th:block th:include="/_header"></th:block>
+</head>
+<body>
+	<th:block th:include="/_header-top"></th:block>
+	<th:block th:include="/_header-bottom"></th:block>
+	<div class="login">
+		<div class="wrap">
+			<div class="col_1_of_login span_1_of_login">
+				<h4 class="title">New Customers</h4>
+				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
+					diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
+					erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
+					tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
+					consequat. Duis autem vel eum iriure dolor in hendrerit in
+					vulputate velit esse molestie consequat, vel illum dolore eu
+					feugiat nulla facilisis at vero eros et accumsan</p>
+				<div class="button1">
+					<a th:href="@{/new}"><input type="submit" name="Submit"
+						value="Create an Account"></a>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="col_1_of_login span_1_of_login">
+				<div class="login-title">
+					<h4 class="title">Registered Customers</h4>
+					<div id="loginbox" class="loginbox">
+						<!--        /login?error=true-->
+						<div th:if="${#request.getParameter('error') == 'true'}"
+							style="color: red; margin: 10px 0px;">
+							Login Failed!!!<br /> Reason : <span
+								th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
+								th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
+								Static summary </span>
+						</div>
+						<form name='f' th:action="@{/j_spring_security_check}" method="post" id="login-form">
+							<fieldset class="input">
+								<p id="login-form-username">
+									<label for="modlgn_username">User Name</label> <input
+										id="modlgn_username" type="text" name='username'
+										class="inputbox" size="18" autocomplete="off" required>
+								</p>
+								<p id="login-form-password">
+									<label for="modlgn_passwd">Password</label> <input
+										id="modlgn_passwd" type="password" name='password'
+										class="inputbox" size="18" autocomplete="off" required>
+								</p>
+								<div class="wthree-text">
+									<label class="anim"> <input type="checkbox"
+										class="checkbox" name="remember-me"> <span>Remember
+											Me?</span>
+									</label>
+									<div class="clear"></div>
+								</div>
+								<div class="remember">
+									<p id="login-form-remember">
+										<label for="modlgn_remember"><a th:href="@{/forgot_password}">Forget
+												Your Password ? </a></label>
+									</p>
+									<input type="submit" name="Submit" class="button" value="Login">
+									<div class="clear"></div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<th:block th:include="/_footer"></th:block>
+</body>
+</html>

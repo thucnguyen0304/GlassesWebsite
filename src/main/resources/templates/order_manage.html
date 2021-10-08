@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Order Management - Leo Shop</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+
+<th:block th:include="/_header"></th:block>
+</head>
+<body>
+	<th:block th:include="/_header-top"></th:block>
+	<th:block th:include="/_header-bottom"></th:block>
+	<div class="register_account">
+		<div class="wrap">
+			<h4 class="title" th:if="${#lists.isEmpty(orders_list)}">Order
+				List is empty</h4>
+			<p class="cart" th:if="${#lists.isEmpty(orders_list)}">
+				You have no items in your order list.<br>Click<a th:href="@{/}">
+					here</a> to continue shopping
+			</p>
+			<h1 class="text-center" th:unless="${#lists.isEmpty(orders_list)}">
+					<th:block th:include="/_menu_admin"></th:block>
+					<a href="/" class="btn btn-danger text-right">Go Home</a>
+			</h1>
+		</div>
+	</div>
+	<table id="example"
+		class="table table-striped table-bordered text-center"
+		th:unless="${#lists.isEmpty(orders_list)}">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>User Name</th>
+				<th>Name</th>
+				<th>Image</th>
+				<th>Price</th>
+				<th>Qty</th>
+				<th>Sub Total</th>
+				<th>Order Status</th>
+				<th>Address</th>
+				<th>Phone</th>
+				<th>Create Date</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="order,status: ${orders_list}">
+				<th:block th:with="product=${order.product}">
+					<td th:text="${order.id}"></td>
+					<td th:text="${order.customer.userName}"></td>
+					<td th:text="${product.name}"></td>
+					<td><img th:src="@{${'/image/display/'+product.id}}"
+						class="card img-fluid" style="width: 100px" alt="" /></td>
+					<td><span>$</span><span th:text="${product.price}"></span></td>
+					<td><span th:text="${order.quantity}"></span></td>
+					<td><span>$</span><span
+						th:text="${order.quantity}*${product.price}"></span><span>.0</span></td>
+					<td><span th:text="${order.orderStatus}"></span></td>
+					<td th:text="${order.address}"></td>
+					<td th:text="${order.phoneNumber}"></td>
+					<td th:text="${#dates.format({order.createDate}, 'dd-MM-yyyy')}" /></td>
+					<td><a class="btn btn-warning"
+						th:href="@{/edit/order/{id}(id=${order.id})}">Edit</a> <a
+						class="btn btn-danger"
+						th:href="@{/delete/order/{id}(id=${order.id})}" id="delete"
+						data-confirm="Are you sure to delete this item.">Delete</a></td>
+				</th:block>
+			</tr>
+		</tbody>
+	</table>
+	<br>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#example').DataTable();
+		});
+	</script>
+	<script src="js/quantity_control.js"></script>
+	<script src="js/add_to_cart.js"></script>
+	<script src="js/shopping_cart.js"></script>
+	<script type="text/javascript">
+		var deleteLinks = document.querySelectorAll('#delete');
+		for (var i = 0; i < deleteLinks.length; i++) {
+			deleteLinks[i].addEventListener('click', function(event) {
+				event.preventDefault();
+				var choice = confirm(this.getAttribute('data-confirm'));
+				if (choice) {
+					window.location.href = this.getAttribute('href');
+				}
+			});
+		}
+	</script>
+	<th:block th:include="/_footer"></th:block>
+</body>
+</html>

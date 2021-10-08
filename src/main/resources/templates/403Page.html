@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Forbbiden - Leo Shop</title>
+<th:block th:include="/_header"></th:block>
+</head>
+<body>
+	<th:block th:include="/_header-top"></th:block>
+	<th:block th:include="/_header-bottom"></th:block>
+	<div class="login">
+		<div class="wrap">
+			<h1 th:if="${message != null}" th:utext="${message}"
+			style="color: red;"></h1>
+<!-- 			<div th:if="${userInfo != null}" th:utext="${userInfo}"></div> -->
+			<div class="clear"></div>
+		</div>
+	</div>
+	<th:block th:include="/_footer"></th:block>
+</body>
+</html>

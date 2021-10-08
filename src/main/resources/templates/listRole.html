@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Role Management - Leo Shop</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
+<th:block th:include="/_header"></th:block>
+</head>
+<body>
+	<th:block th:include="/_header-top"></th:block>
+	<th:block th:include="/_header-bottom"></th:block>
+	<div class="login">
+		<div align="center">
+			<h1 class="text-center">
+<!-- 					<a href="/admin" class="btn btn-light">Product Management</a>| -->
+<!-- 					<a href="/listRole" class="btn btn-light">User Role Management</a>| -->
+<!-- 					<a href="/list_order_status" class="btn btn-light">Order Status Management</a>| -->
+<!-- 					<a href="/order_manage" class="btn btn-light">Order Management</a>| -->
+<!-- 					<a href="/listUser" class="btn btn-light">User Management</a> -->
+					<th:block th:include="/_menu_admin"></th:block>
+					<a href="/" class="btn btn-danger text-right">Go Home</a> 
+					<a href="/add_role" class="btn btn-primary text-right">Add Role</a>
+			</h1>
+			<br> <br>
+
+			<table id="example"
+				class="table table-striped table-bordered text-center">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>User ID</th>
+						<th>User Name</th>
+						<th>Role ID</th>
+						<th>Role Name</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody th:with="count=0">
+					<tr th:each="role : ${roles}">
+						<td th:text="${role.id}">ID</td>
+						<td th:text="${role.appUser.userId}">User ID</td>
+						<td th:text="${role.appUser.userName}">User Name</td>
+						<td th:text="${role.appRole.roleId}">Role ID</td>
+						<td th:text="${role.appRole.roleName}">Role Name</td>
+						<td><a th:href="@{/edit_role/{id}(id=${role.id})}"
+							class="btn btn-warning text-right">Edit</a> &nbsp;&nbsp;&nbsp; <!-- 							<a -->
+							<!-- 							th:href="@{/delete_role/{id}(id=${role.id})}" --> <!-- 							class="btn btn-danger text-right" id="delete" -->
+							<!-- 							data-confirm="Are you sure to delete this item.">Delete</a></td> -->
+					</tr>
+				</tbody>
+			</table>
+			<script
+				src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+			<script
+				src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+			<script
+				src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$('#example').DataTable();
+				});
+			</script>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var deleteLinks = document.querySelectorAll('#delete');
+		for (var i = 0; i < deleteLinks.length; i++) {
+			deleteLinks[i].addEventListener('click', function(event) {
+				event.preventDefault();
+				var choice = confirm(this.getAttribute('data-confirm'));
+				if (choice) {
+					window.location.href = this.getAttribute('href');
+				}
+			});
+		}
+	</script>
+	<th:block th:include="/_footer"></th:block>
+</body>
+</html>

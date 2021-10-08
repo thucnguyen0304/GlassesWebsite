@@ -1,0 +1,179 @@
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+<div class="header-bottom" xmlns:th="http://www.thymeleaf.org">
+	<div class="wrap">
+		<div class="header-bottom-left">
+			<div class="logo">
+				<a th:href="@{/}"><img src="images/logo.png" alt="" /></a>
+			</div>
+			<div class="menu">
+				<ul class="megamenu skyblue">
+					<li class="active grid"><a th:href="@{/}">Home</a></li>
+					<li><a class="color4" th:href="@{/womens}">women</a>
+						<div class="megapanel">
+							<div class="row">
+								<div class="col1">
+									<div class="h_nav">
+										<h4>Contact Lenses</h4>
+										<ul>
+											<li><a href="womens.html">Daily-wear soft lenses</a></li>
+											<li><a href="womens.html">Extended-wear</a></li>
+											<li><a href="womens.html">Lorem ipsum </a></li>
+											<li><a href="womens.html">Planned replacement</a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="col1">
+									<div class="h_nav">
+										<h4>Sun Glasses</h4>
+										<ul>
+											<li><a href="womens.html">Heart-Shaped</a></li>
+											<li><a href="womens.html">Square-Shaped</a></li>
+											<li><a href="womens.html">Round-Shaped</a></li>
+											<li><a href="womens.html">Oval-Shaped</a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="col1">
+									<div class="h_nav">
+										<h4>Eye Glasses</h4>
+										<ul>
+											<li><a href="womens.html">Anti Reflective</a></li>
+											<li><a href="womens.html">Aspheric</a></li>
+											<li><a href="womens.html">Bifocal</a></li>
+											<li><a href="womens.html">Hi-index</a></li>
+											<li><a href="womens.html">Progressive</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div></li>
+					<li><a class="color5" th:href="@{/mens}">Men</a>
+						<div class="megapanel">
+							<div class="col1">
+								<div class="h_nav">
+									<h4>Contact Lenses</h4>
+									<ul>
+										<li><a href="mens.html">Daily-wear soft lenses</a></li>
+										<li><a href="mens.html">Extended-wear</a></li>
+										<li><a href="mens.html">Lorem ipsum </a></li>
+										<li><a href="mens.html">Planned replacement</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="col1">
+								<div class="h_nav">
+									<h4>Sun Glasses</h4>
+									<ul>
+										<li><a href="mens.html">Heart-Shaped</a></li>
+										<li><a href="mens.html">Square-Shaped</a></li>
+										<li><a href="mens.html">Round-Shaped</a></li>
+										<li><a href="mens.html">Oval-Shaped</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="col1">
+								<div class="h_nav">
+									<h4>Eye Glasses</h4>
+									<ul>
+										<li><a href="mens.html">Anti Reflective</a></li>
+										<li><a href="mens.html">Aspheric</a></li>
+										<li><a href="mens.html">Bifocal</a></li>
+										<li><a href="mens.html">Hi-index</a></li>
+										<li><a href="mens.html">Progressive</a></li>
+									</ul>
+								</div>
+							</div>
+						</div></li>
+					<li><a class="color6" th:href="@{/other}">Other</a></li>
+					<li><a class="color7" th:href="@{/order_list}">Order
+							History</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="header-bottom-right">
+			<div class="search">
+				<form th:action="@{/search}">
+					<input type="text" class="textbox" value="Search" name="keyword"
+						id="keyword" th:value="${keyword}"> <input type="submit"
+						id="btnClear" name="submit">
+				</form>
+				<div id="response"></div>
+			</div>
+			<div class="tag-list">
+				<ul class="icon1 sub-icon1 profile_img">
+					<li><a class="active-icon c1" href="#"> </a>
+						<ul class="sub-icon1 list">
+							<li><h3>sed diam nonummy</h3> <a href=""></a></li>
+							<li><p>
+									Lorem ipsum dolor sit amet, consectetuer <a href="">adipiscing
+										elit, sed diam</a>
+								</p></li>
+						</ul></li>
+				</ul>
+				<ul class="icon1 sub-icon1 profile_img">
+					<li><a class="active-icon c2" th:href="@{/cart}"> </a>
+						<ul class="sub-icon1 list">
+							<li th:if="${#lists.isEmpty(cartItems)}"><h3>No
+									Products</h3> <a href=""></a></li>
+							<li th:if="${#lists.isEmpty(cartItems)}"><p>
+									Lorem ipsum dolor sit amet, consectetuer <a href="">adipiscing
+										elit, sed diam</a>
+								</p></li>
+							<li>
+								<table th:unless="${#lists.isEmpty(cartItems)}">
+									<tr>
+										<th>Image</th>
+										<th>Qty</th>
+										<th>Price</th>
+										<th>Action</th>
+									</tr>
+									<tr th:each="cart,aa: ${cartItems}" th:if="${aa.index} <2">
+										<td><img th:src="@{${'/image/display/'+cart.product.id}}"
+											height="30px" width="60px"></td>
+										<td th:text="${cart.quantity}"></td>
+										<td><span>$</span>[[${cart.product.price}]]</td>
+										<td><a th:href="@{'/cart/delete/'+${cart.id}}"
+											class="btn btn-danger text-right">Delete</a></td>
+									</tr>
+								</table>
+								<div th:unless="${#lists.isEmpty(cartItems)}">
+									<a th:href="@{/cart}" style="text-align: center;">Show All
+										Cart(<th:block href="#"
+											th:unless="${#lists.isEmpty(cartItems)}">[[${#lists.size(cartItems)}]]
+							</th:block> <th:block th:if="${#lists.isEmpty(cartItems)}">0</th:block> )
+									</a>
+
+								</div>
+							</li>
+						</ul></li>
+				</ul>
+				<ul class="last">
+					<li><a>Cart(<th:block href="#"
+								th:unless="${#lists.isEmpty(cartItems)}">[[${#lists.size(cartItems)}]]
+							</th:block> <th:block th:if="${#lists.isEmpty(cartItems)}">0</th:block> )
+					</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+<!-- <script type="text/javascript"> -->
+<!-- // 	function clearSearch() { -->
+<!-- // 		window.location = "[[@{/search}]]"; -->
+<!-- // 	} -->
+<!-- </script> -->
+<style>
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+}
+</style>
